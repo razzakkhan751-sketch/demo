@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../services/auth_service.dart';
-import '../components/app_drawer.dart';
+import '../../widgets/app_drawer.dart';
 import '../admin/admin_manage_content_screen.dart';
 import '../live_classes_screen.dart';
 import '../courses_screen.dart';

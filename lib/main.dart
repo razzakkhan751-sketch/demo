@@ -14,7 +14,7 @@ import 'screens/admin/admin_dashboard_screen.dart';
 import 'screens/role_selection_screen.dart';
 import 'screens/teacher/teacher_dashboard_screen.dart';
 import 'services/auth_service.dart';
-import 'services/theme_provider.dart';
+import 'core/theme_provider.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {

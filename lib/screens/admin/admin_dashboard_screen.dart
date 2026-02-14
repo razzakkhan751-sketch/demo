@@ -8,7 +8,7 @@ import 'admin_analytics_screen.dart';
 import '../courses_screen.dart';
 import '../notes_screen.dart';
 import '../search/global_search_delegate.dart';
-import '../../services/seeding_coordinator.dart';
+import '../../seeding/seeding_coordinator.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});

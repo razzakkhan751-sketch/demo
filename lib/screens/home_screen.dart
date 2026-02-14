@@ -15,7 +15,7 @@ import 'ai_tutor_screen.dart';
 import 'profile_screen.dart';
 import 'notes_screen.dart';
 import 'progress_screen.dart';
-import 'components/app_drawer.dart';
+import '../widgets/app_drawer.dart';
 import 'admin/admin_manage_content_screen.dart';
 import 'search/global_search_delegate.dart';
 import 'chat/chat_list_screen.dart';
