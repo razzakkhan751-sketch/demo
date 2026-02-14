@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "elearning_app (Chrome)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--web-port",
+                "3000",
+                "--web-hostname",
+                "localhost",
+                "-d",
+                "chrome"
+            ]
+        },
+        {
+            "name": "elearning_app (Edge)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--web-port",
+                "3000",
+                "--web-hostname",
+                "localhost",
+                "-d",
+                "edge"
+            ]
+        }
+    ]
+}
