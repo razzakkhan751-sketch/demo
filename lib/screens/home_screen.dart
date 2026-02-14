@@ -476,41 +476,48 @@ class DashboardTab extends StatelessWidget {
     ProgressService service,
   ) {
     final db = DatabaseService();
+    // Optimization: Stream courses first (or use a Future if real-time isn't needed) to avoid re-subscribing
+    // to the full courses collection every time the user's progress updates.
     return StreamBuilder<List<Map<String, dynamic>>>(
-      stream: service.getAllProgressStream(uid),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 24),
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.blue[50],
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: const Row(
-              children: [
-                Icon(Icons.school, color: Colors.blue),
-                SizedBox(width: 16),
-                Text("Start a course to track progress here!"),
-              ],
-            ),
+      stream: db.streamCollection('courses'),
+      builder: (context, coursesSnapshot) {
+        if (!coursesSnapshot.hasData) {
+          return const SizedBox(
+            height: 140,
+            child: Center(child: CircularProgressIndicator()),
           );
         }
 
-        final progressList = snapshot.data!;
+        final allCourses = coursesSnapshot.data!;
 
-        // Optimization: Use a single StreamBuilder for all courses to avoid N+1 queries
         return StreamBuilder<List<Map<String, dynamic>>>(
-          stream: db.streamCollection('courses'),
-          builder: (context, coursesSnapshot) {
-            if (!coursesSnapshot.hasData) {
-              return const SizedBox(
-                height: 140,
-                child: Center(child: CircularProgressIndicator()),
-              );
+          stream: service.getAllProgressStream(uid),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              // Show "No progress cached" or empty container only if truly empty
+              // But we want to encourage them to start.
+              if (!snapshot.hasData) return const SizedBox.shrink();
+
+              if (snapshot.data!.isEmpty) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.blue[50],
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.school, color: Colors.blue),
+                      SizedBox(width: 16),
+                      Text("Start a course to track progress here!"),
+                    ],
+                  ),
+                );
+              }
             }
 
-            final allCourses = coursesSnapshot.data!;
+            final progressList = snapshot.data!;
             final List<Widget> items = [];
 
             for (var progress in progressList) {

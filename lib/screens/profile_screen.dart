@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
-import '../services/theme_provider.dart';
 import 'edit_profile_screen.dart';
 import 'progress_screen.dart'; // Reusing progress for History
 import 'admin/admin_dashboard_screen.dart';
@@ -103,13 +102,7 @@ class ProfileScreen extends StatelessWidget {
               const SnackBar(content: Text("No new notifications")),
             );
           }),
-          _buildProfileItem(Icons.settings, "Settings", () {
-            // Placeholder for settings
-            showModalBottomSheet(
-              context: context,
-              builder: (context) => _buildSettingsSheet(context),
-            );
-          }),
+
           if (user?.email != 'admin@admin.com')
             _buildProfileItem(Icons.delete_forever, "Delete Account", () {
               showDialog(
@@ -274,38 +267,6 @@ class ProfileScreen extends StatelessWidget {
           color: Colors.grey,
         ),
         onTap: onTap,
-      ),
-    );
-  }
-
-  Widget _buildSettingsSheet(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-
-    return Container(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Settings",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 20),
-          SwitchListTile(
-            title: const Text("Dark Mode"),
-            value: themeProvider.isDarkMode,
-            onChanged: (value) {
-              themeProvider.toggleTheme(value);
-            },
-          ),
-          SwitchListTile(
-            title: const Text("Email Notifications"),
-            value: true,
-            onChanged: (v) {},
-          ),
-          const SizedBox(height: 20),
-        ],
       ),
     );
   }

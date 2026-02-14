@@ -223,20 +223,20 @@ class AuthWrapper extends StatefulWidget {
 
 class _AuthWrapperState extends State<AuthWrapper> {
   bool _showFallback = false;
-  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    // Start a 3-second timer to show a "Retry" if things hang
-    _timer = Timer(const Duration(seconds: 3), () {
-      if (mounted) setState(() => _showFallback = true);
+    // Reduce fallback timer for faster perceived loading
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted && _showFallback == false) {
+        setState(() => _showFallback = true);
+      }
     });
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
     super.dispose();
   }
 
@@ -254,14 +254,11 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
         // 1. ABSOLUTE PRIORITY: If no Firebase user, we MUST show login
         if (user == null) {
-          _timer?.cancel();
           return const LoginScreen();
         }
 
         // If not loading anymore and we have state, cancel retry timer
-        if (!loading && model != null) {
-          _timer?.cancel();
-        }
+        // User is loaded, proceed to role routing
 
         // 2. LOADING STATE: With safety fallback
         // We only show the global "Optimizing..." screen if we don't have a model yet (initial boot).
