@@ -5,6 +5,7 @@ import '../models/course.dart';
 import '../services/auth_service.dart';
 import '../services/database_service.dart';
 import 'admin/admin_add_course_screen.dart';
+import 'course_detail_screen.dart';
 
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
@@ -12,9 +13,10 @@ class QuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final db = DatabaseService();
+    final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
           "Quizzes",
@@ -38,7 +40,6 @@ class QuizScreen extends StatelessWidget {
                 return Course.fromMap(data, data['id']);
               })
               .where((course) {
-                // Optimization: Use the flag we added in seeding
                 final dynamic data = snapshot.data!.firstWhere(
                   (d) => d['id'] == course.id,
                 );
@@ -84,14 +85,16 @@ class QuizScreen extends StatelessWidget {
     final isAdmin =
         Provider.of<AuthService>(context, listen: false).userModel?.role ==
         'admin';
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDark ? const Color(0xFF252540) : Colors.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.08),
+            color: Colors.grey.withValues(alpha: isDark ? 0.05 : 0.08),
             spreadRadius: 2,
             blurRadius: 10,
             offset: const Offset(0, 4),
@@ -111,9 +114,11 @@ class QuizScreen extends StatelessWidget {
                 ),
               );
             } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Quiz taking feature coming soon!"),
+              // Navigate to course detail which has the quiz button
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => CourseDetailScreen(course: course),
                 ),
               );
             }
@@ -126,10 +131,14 @@ class QuizScreen extends StatelessWidget {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: Colors.blue.withValues(alpha: 0.1),
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF6C63FF), Color(0xFF9B93FF)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: const Icon(Icons.quiz, color: Colors.blue, size: 30),
+                  child: const Icon(Icons.quiz, color: Colors.white, size: 30),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -158,7 +167,7 @@ class QuizScreen extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.grey[100],
+                          color: theme.primaryColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
@@ -166,7 +175,7 @@ class QuizScreen extends StatelessWidget {
                           style: GoogleFonts.poppins(
                             fontSize: 10,
                             fontWeight: FontWeight.w500,
-                            color: Colors.grey[700],
+                            color: theme.primaryColor,
                           ),
                         ),
                       ),
@@ -176,9 +185,9 @@ class QuizScreen extends StatelessWidget {
                 if (isAdmin)
                   const Icon(Icons.edit, color: Colors.orange, size: 20)
                 else
-                  const Icon(
+                  Icon(
                     Icons.arrow_forward_ios,
-                    color: Colors.grey,
+                    color: theme.primaryColor,
                     size: 16,
                   ),
               ],

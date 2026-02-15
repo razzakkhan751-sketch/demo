@@ -1,3 +1,11 @@
+// ──────────────────────────────────────────────────────────
+// course_detail_screen.dart — Individual Course View
+// ──────────────────────────────────────────────────────────
+// Shows: Course info, lessons list, video playback, quiz
+// Data: Firestore (lessons, questions) + CacheService
+// Supports: YouTube, direct URLs, and embedded video
+// ──────────────────────────────────────────────────────────
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:url_launcher/url_launcher.dart';
@@ -6,9 +14,9 @@ import '../models/course.dart';
 import '../services/progress_service.dart';
 import '../services/auth_service.dart';
 import '../services/database_service.dart';
+import '../services/cache_service.dart';
 import '../widgets/video_player_widget.dart';
 import 'chat/chat_screen.dart';
-import 'ai_tutor_screen.dart';
 
 class CourseDetailScreen extends StatefulWidget {
   final Course course;
@@ -28,6 +36,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
   int _currentLessonIndex = -1;
   final ProgressService _progressService = ProgressService();
   final DatabaseService _db = DatabaseService();
+  final CacheService _cache = CacheService();
   String? _userId;
 
   List<Lesson> _lessons = [];
@@ -64,18 +73,32 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     if (!mounted) return;
     setState(() => _isLoadingContent = true);
 
+    final courseId = widget.course.id;
+
     try {
-      // 1. Fetch Lessons
+      // 1. Try loading from cache first for instant display
+      final cachedLessons = await _cache.getCachedLessons(courseId);
+      final cachedQuestions = await _cache.getCachedQuestions(courseId);
+
+      if (cachedLessons != null && cachedQuestions != null && mounted) {
+        setState(() {
+          _lessons = cachedLessons.map((e) => Lesson.fromMap(e)).toList();
+          _questions = cachedQuestions.map((e) => Question.fromMap(e)).toList();
+          _isLoadingContent = false;
+        });
+        debugPrint('⚡ [CourseDetail] Loaded from cache');
+      }
+
+      // 2. Always fetch fresh data from Firebase in background
       final lessonsData = await _db.query(
-        'courses/${widget.course.id}/lessons',
+        'courses/$courseId/lessons',
         orderBy: 'title ASC',
       );
-      // Note: We use courseId/lessons as the path
+      final questionsData = await _db.query('courses/$courseId/questions');
 
-      // 2. Fetch Questions
-      final questionsData = await _db.query(
-        'courses/${widget.course.id}/questions',
-      );
+      // 3. Cache for next time
+      await _cache.cacheLessons(courseId, lessonsData);
+      await _cache.cacheQuestions(courseId, questionsData);
 
       if (mounted) {
         setState(() {
@@ -303,26 +326,14 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                     MaterialPageRoute(
                       builder: (_) => ChatScreen(
                         roomId: courseId,
-                        title: "${displayCourse.title} Forum",
+                        otherUserName: displayCourse.title,
+                        otherUserRole: 'course',
                       ),
                     ),
                   );
                 },
               ),
             ],
-          ),
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) =>
-                    AITutorScreen(courseContext: displayCourse.title),
-              ),
-            ),
-            icon: const Icon(Icons.smart_toy),
-            label: const Text("Ask AI"),
-            backgroundColor: Colors.deepPurple,
-            foregroundColor: Colors.white,
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -525,9 +536,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   lesson.title,
                   style: TextStyle(
                     fontWeight: isPlaying ? FontWeight.bold : FontWeight.normal,
-                    color: isPlaying
-                        ? Theme.of(context).primaryColor
-                        : Colors.black87,
+                    color: isPlaying ? Theme.of(context).primaryColor : null,
                   ),
                 ),
                 subtitle: Text(lesson.duration),

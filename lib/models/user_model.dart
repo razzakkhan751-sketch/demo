@@ -3,7 +3,8 @@ class UserModel {
   final String email;
   final String name;
   final String photoUrl;
-  final String role; // 'student', 'teacher', 'admin'
+  final String role; // 'student', 'teacher', 'admin', 'pending'
+  final String? requestedRole; // 'student' or 'teacher' (when role is pending)
   final bool isBanned;
 
   UserModel({
@@ -12,6 +13,7 @@ class UserModel {
     this.name = '',
     this.photoUrl = '',
     this.role = 'pending',
+    this.requestedRole,
     this.isBanned = false,
   });
 
@@ -22,6 +24,7 @@ class UserModel {
       name: data['name'] ?? '',
       photoUrl: data['photo_url'] ?? data['photoUrl'] ?? '',
       role: data['role'] ?? 'pending',
+      requestedRole: data['requested_role'] ?? data['requestedRole'],
       isBanned: data['is_banned'] ?? data['isBanned'] ?? false,
     );
   }
@@ -33,6 +36,7 @@ class UserModel {
       'name': name,
       'photo_url': photoUrl,
       'role': role,
+      'requested_role': requestedRole,
       'is_banned': isBanned,
     };
   }

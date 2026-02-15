@@ -1,6 +1,15 @@
+// ──────────────────────────────────────────────────────────
+// admin_dashboard_screen.dart — Admin Panel Main Screen
+// ──────────────────────────────────────────────────────────
+// Shows: User management, content management, analytics,
+//        course browsing, notes, search, and cache controls
+// Access: Admin role only (enforced by AuthWrapper)
+// ──────────────────────────────────────────────────────────
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../services/auth_service.dart';
+import '../../services/cache_service.dart';
 import 'admin_users_screen.dart';
 import 'admin_add_course_screen.dart';
 import 'admin_manage_content_screen.dart';
@@ -8,7 +17,6 @@ import 'admin_analytics_screen.dart';
 import '../courses_screen.dart';
 import '../notes_screen.dart';
 import '../search/global_search_delegate.dart';
-import '../../seeding/seeding_coordinator.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});
@@ -211,9 +219,9 @@ class AdminDashboardScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   _buildActionCard(
                     context,
-                    "Sync Database Content",
-                    "Populate all courses & notes now",
-                    Icons.sync_rounded,
+                    "Refresh Cache",
+                    "Clear local cache & reload from Firebase",
+                    Icons.refresh_rounded,
                     [const Color(0xFF667eea), const Color(0xFF764ba2)],
                     () async {
                       showDialog(
@@ -222,14 +230,15 @@ class AdminDashboardScreen extends StatelessWidget {
                         builder: (context) =>
                             const Center(child: CircularProgressIndicator()),
                       );
-                      await SeedingCoordinator().init(force: true);
+                      await CacheService().clearAllCaches();
                       if (context.mounted) {
-                        Navigator.pop(context); // Close loading
+                        Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                              "Database synchronization complete! Check your Firestore Console.",
+                              "Cache cleared! Content will refresh from Firebase.",
                             ),
+                            backgroundColor: Colors.green,
                           ),
                         );
                       }

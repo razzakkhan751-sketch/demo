@@ -1,3 +1,10 @@
+// ──────────────────────────────────────────────────────────
+// courses_screen.dart — Browse All Courses
+// ──────────────────────────────────────────────────────────
+// Displays: Grid of all courses with search and filtering
+// Data source: Firestore via DatabaseService + CacheService
+// ──────────────────────────────────────────────────────────
+
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
@@ -5,7 +12,7 @@ import '../models/course.dart';
 import '../services/auth_service.dart';
 import '../services/database_service.dart';
 import 'admin/admin_add_course_screen.dart';
-import 'admin/admin_panel_screen.dart';
+
 import 'course_detail_screen.dart';
 import 'category_courses_screen.dart';
 
@@ -42,7 +49,7 @@ class CoursesScreen extends StatelessWidget {
     final canManage = isAdmin || isTeacher;
 
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text(
           "Explore Courses",
@@ -51,21 +58,7 @@ class CoursesScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: false,
-        actions: [
-          if (isAdmin)
-            IconButton(
-              icon: const Icon(
-                Icons.admin_panel_settings,
-                color: Colors.black87,
-              ),
-              tooltip: 'Admin Panel',
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const AdminPanelScreen()),
-              ),
-            ),
-          const SizedBox(width: 16),
-        ],
+        actions: const [SizedBox(width: 16)],
       ),
       floatingActionButton: canManage
           ? FloatingActionButton.extended(

@@ -1,3 +1,10 @@
+// ──────────────────────────────────────────────────────────
+// progress_service.dart — Student Progress Tracking
+// ──────────────────────────────────────────────────────────
+// Tracks: Completed lessons, quiz scores, course progress
+// Data source: Firestore (user_progress collection)
+// ──────────────────────────────────────────────────────────
+
 import 'package:flutter/foundation.dart';
 import 'database_service.dart';
 import 'dart:async';

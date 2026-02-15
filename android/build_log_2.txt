@@ -1,0 +1,260 @@
+﻿> Task :gradle:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle:compileKotlin UP-TO-DATE
+> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy NO-SOURCE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources UP-TO-DATE
+> Task :gradle:classes UP-TO-DATE
+> Task :gradle:jar UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///C:/Users/razza/OneDrive/Desktop/elearning_app/android/build/reports/problems/problems-report.html
+.\gradlew : 
+At line:1 char:77
++ ... Adoptium\jdk-17.0.18
+.8-hotspot'; .\gradlew 
+assembleDebug *>&1 | 
+Out-F ...
++                         
+             ~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (:  
+  String) [], RemoteExc   
+ eption
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+A problem occurred 
+configuring project 
+':package_info_plus'.
+> Multiple build 
+operations failed.
+      Could not isolate 
+parameters org.gradle.api.
+internal.initialization.tr
+ansform.MergeInstrumentati
+onAnalysisTransform$Parame
+ters_Decorated@13740df2 
+of artifact transform Merg
+eInstrumentationAnalysisTr
+ansform
+      Could not isolate 
+parameters org.gradle.api.
+internal.initialization.tr
+ansform.MergeInstrumentati
+onAnalysisTransform$Parame
+ters_Decorated@13740df2 
+of artifact transform Merg
+eInstrumentationAnalysisTr
+ansform
+      Could not isolate 
+parameters org.gradle.api.
+internal.initialization.tr
+ansform.MergeInstrumentati
+onAnalysisTransform$Parame
+ters_Decorated@13740df2 
+of artifact transform Merg
+eInstrumentationAnalysisTr
+ansform
+      Could not isolate 
+parameters org.gradle.api.
+internal.initialization.tr
+ansform.MergeInstrumentati
+onAnalysisTransform$Parame
+ters_Decorated@13740df2 
+of artifact transform Merg
+eInstrumentationAnalysisTr
+ansform
+      Could not isolate 
+parameters org.gradle.api.
+internal.initialization.tr
+ansform.MergeInstrumentati
+onAnalysisTransform$Parame
+ters_Decorated@13740df2 
+of artifact transform Merg
+eInstrumentationAnalysisTr
+ansform
+      Could not isolate 
+parameters org.gradle.api.
+internal.initialization.tr
+ansform.MergeInstrumentati
+onAnalysisTransform$Parame
+ters_Decorated@13740df2 
+of artifact transform Merg
+eInstrumentationAnalysisTr
+ansform
+      Could not isolate 
+parameters org.gradle.api.
+internal.initialization.tr
+ansform.MergeInstrumentati
+onAnalysisTransform$Parame
+ters_Decorated@13740df2 
+of artifact transform Merg
+eInstrumentationAnalysisTr
+ansform
+      Could not isolate 
+parameters org.gradle.api.
+internal.initialization.tr
+ansform.MergeInstrumentati
+onAnalysisTransform$Parame
+ters_Decorated@13740df2 
+of artifact transform Merg
+eInstrumentationAnalysisTr
+ansform
+      Could not isolate 
+parameters org.gradle.api.
+internal.initialization.tr
+ansform.MergeInstrumentati
+onAnalysisTransform$Parame
+ters_Decorated@13740df2 
+of artifact transform Merg
+eInstrumentationAnalysisTr
+ansform
+      Could not isolate 
+parameters org.gradle.api.
+internal.initialization.tr
+ansform.MergeInstrumentati
+onAnalysisTransform$Parame
+ters_Decorated@13740df2 
+of artifact transform Merg
+eInstrumentationAnalysisTr
+ansform
+      ...and 134 more 
+failures.
+   > Could not isolate 
+parameters org.gradle.api.
+internal.initialization.tr
+ansform.MergeInstrumentati
+onAnalysisTransform$Parame
+ters_Decorated@13740df2 
+of artifact transform Merg
+eInstrumentationAnalysisTr
+ansform
+      > Could not isolate 
+value org.gradle.api.inter
+nal.initialization.transfo
+rm.MergeInstrumentationAna
+lysisTransform$Parameters_
+Decorated@13740df2 of 
+type MergeInstrumentationA
+nalysisTransform.Parameter
+s
+         > Multiple build 
+operations failed.
+               Could not 
+read workspace metadata 
+from C:\Users\razza\.gradl
+e\caches\8.14\transforms\a
+a0ff929b869a53e8bafd40561a
+92dbe\metadata.bin
+               Could not 
+read workspace metadata 
+from C:\Users\razza\.gradl
+e\caches\8.14\transforms\5
+d93c546480a06cd6cd89d81f38
+943cc\metadata.bin
+               Could not 
+read workspace metadata 
+from C:\Users\razza\.gradl
+e\caches\8.14\transforms\c
+8c798d0701e41df011a374778e
+dc3fe\metadata.bin
+               Could not 
+read workspace metadata 
+from C:\Users\razza\.gradl
+e\caches\8.14\transforms\7
+d540ba22a975f73cded02492f2
+73e8e\metadata.bin
+            > Could not 
+read workspace metadata 
+from C:\Users\razza\.gradl
+e\caches\8.14\transforms\a
+a0ff929b869a53e8bafd40561a
+92dbe\metadata.bin
+            > Could not 
+read workspace metadata 
+from C:\Users\razza\.gradl
+e\caches\8.14\transforms\5
+d93c546480a06cd6cd89d81f38
+943cc\metadata.bin
+            > Could not 
+read workspace metadata 
+from C:\Users\razza\.gradl
+e\caches\8.14\transforms\c
+8c798d0701e41df011a374778e
+dc3fe\metadata.bin
+            > Could not 
+read workspace metadata 
+from C:\Users\razza\.gradl
+e\caches\8.14\transforms\7
+d540ba22a975f73cded02492f2
+73e8e\metadata.bin
+   > Could not read 
+workspace metadata from C:
+\Users\razza\.gradle\cache
+s\8.14\transforms\aa0ff929
+b869a53e8bafd40561a92dbe\m
+etadata.bin
+   > Could not read 
+workspace metadata from C:
+\Users\razza\.gradle\cache
+s\8.14\transforms\5d93c546
+480a06cd6cd89d81f38943cc\m
+etadata.bin
+   > Could not read 
+workspace metadata from C:
+\Users\razza\.gradle\cache
+s\8.14\transforms\c8c798d0
+701e41df011a374778edc3fe\m
+etadata.bin
+   > Could not read 
+workspace metadata from C:
+\Users\razza\.gradle\cache
+s\8.14\transforms\7d540ba2
+2a975f73cded02492f273e8e\m
+etadata.bin
+> Failed to notify 
+project evaluation 
+listener.
+   > java.lang.NullPointer
+Exception (no error 
+message)
+   > java.lang.NullPointer
+Exception (no error 
+message)
+
+* Try:
+> Run the 
+'artifactTransforms' 
+report task to view 
+details about registered 
+transforms.
+> Review the 
+documentation on Artifact 
+Transforms at https://docs
+.gradle.org/8.14/userguide
+/artifact_transforms.html.
+> Run with --stacktrace 
+option to get the stack 
+trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to get 
+full insights.
+> Get more help at 
+https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 7s
+4 actionable tasks: 4 up-to-date

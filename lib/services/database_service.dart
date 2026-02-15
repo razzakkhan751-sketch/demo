@@ -1,3 +1,11 @@
+// ──────────────────────────────────────────────────────────
+// database_service.dart — Firestore CRUD Abstraction Layer
+// ──────────────────────────────────────────────────────────
+// Wraps Cloud Firestore operations with error handling,
+// timeouts, and real-time streaming support.
+// Used by: AuthService, all screens that read/write data
+// ──────────────────────────────────────────────────────────
+
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,7 +16,7 @@ class DatabaseService {
   DatabaseService._internal();
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final Duration _timeout = const Duration(seconds: 60);
+  final Duration _timeout = const Duration(seconds: 20);
 
   // Generic helpers for Firestore
   Future<void> insert(
@@ -321,6 +329,18 @@ class DatabaseService {
         data['id'] = doc.id;
         return data;
       }).toList();
+    });
+  }
+
+  Stream<Map<String, dynamic>?> streamDocument(
+    String collection,
+    String docId,
+  ) {
+    return _firestore.collection(collection).doc(docId).snapshots().map((doc) {
+      if (!doc.exists) return null;
+      final data = doc.data() as Map<String, dynamic>;
+      data['id'] = doc.id;
+      return data;
     });
   }
 

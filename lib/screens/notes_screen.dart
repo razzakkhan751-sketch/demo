@@ -1,3 +1,10 @@
+// ──────────────────────────────────────────────────────────
+// notes_screen.dart — Study Notes Browser
+// ──────────────────────────────────────────────────────────
+// Displays: Notes from Firestore with content preview
+// Supports: Language-specific notes with formatted content
+// ──────────────────────────────────────────────────────────
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/note.dart';
@@ -120,10 +127,7 @@ class NotesScreen extends StatelessWidget {
                       ),
                       Text(
                         note.content,
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          color: Colors.black87,
-                        ),
+                        style: GoogleFonts.poppins(fontSize: 14),
                       ),
                       if (note.pdfUrl != null && note.pdfUrl!.isNotEmpty)
                         Padding(

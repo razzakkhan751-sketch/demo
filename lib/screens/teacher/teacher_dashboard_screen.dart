@@ -1,4 +1,12 @@
+// ──────────────────────────────────────────────────────────
+// teacher_dashboard_screen.dart — Teacher Panel Main Screen
+// ──────────────────────────────────────────────────────────
+// Shows: Quick actions, course management, live classes, notes
+// Navigation: Uses AppDrawer for side menu
+// ──────────────────────────────────────────────────────────
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../services/auth_service.dart';
 import '../../widgets/app_drawer.dart';
@@ -22,6 +30,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<AuthService>(context).userModel;
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -31,17 +40,26 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. Header Section (Same as HomeScreen)
+            // ─── Header Section ───
             Container(
               padding: const EdgeInsets.fromLTRB(24, 60, 24, 40),
               decoration: BoxDecoration(
-                color: theme.primaryColor,
+                gradient: LinearGradient(
+                  colors: isDark
+                      ? [const Color(0xFF1E1E2E), const Color(0xFF2D2D44)]
+                      : [
+                          theme.primaryColor,
+                          theme.primaryColor.withValues(alpha: 0.85),
+                        ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
                 borderRadius: const BorderRadius.vertical(
                   bottom: Radius.circular(36),
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: theme.primaryColor.withValues(alpha: 0.4),
+                    color: theme.primaryColor.withValues(alpha: 0.3),
                     offset: const Offset(0, 10),
                     blurRadius: 20,
                   ),
@@ -49,6 +67,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
               ),
               child: Column(
                 children: [
+                  // Top bar: Menu + Profile avatar
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -72,9 +91,9 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                           backgroundColor: Colors.white24,
                           child: Text(
                             (user?.name.isNotEmpty == true)
-                                ? user!.name[0]
+                                ? user!.name[0].toUpperCase()
                                 : "T",
-                            style: const TextStyle(
+                            style: GoogleFonts.poppins(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -84,19 +103,24 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                     ],
                   ),
                   const SizedBox(height: 20),
+
+                  // Welcome text
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           "Teacher Dashboard",
-                          style: TextStyle(color: Colors.white70, fontSize: 16),
+                          style: GoogleFonts.poppins(
+                            color: Colors.white70,
+                            fontSize: 14,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           "Welcome, ${user?.name ?? 'Teacher'}",
-                          style: const TextStyle(
+                          style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -111,21 +135,24 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
 
             const SizedBox(height: 24),
 
-            // Teacher-specific Quick Actions
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
+            // ─── Quick Actions Section ───
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Text(
                 "Quick Actions",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-
             const SizedBox(height: 16),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [
+                  // My Courses card
                   _buildTeacherCard(
                     context,
                     "My Courses",
@@ -140,32 +167,8 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildTeacherCard(
-                          context,
-                          "Students",
-                          "Track performance",
-                          Icons.people_rounded,
-                          [const Color(0xFF4facfe), const Color(0xFF00f2fe)],
-                          () {},
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: _buildTeacherCard(
-                          context,
-                          "Analytics",
-                          "View payouts & stats",
-                          Icons.analytics_rounded,
-                          [const Color(0xFFfa709a), const Color(0xFFfee140)],
-                          () {},
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
+
+                  // Schedule Live Classes
                   _buildTeacherCard(
                     context,
                     "Live Classes",
@@ -180,6 +183,9 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                     ),
                     fullWidth: true,
                   ),
+                  const SizedBox(height: 16),
+
+                  // Browse All Courses
                   _buildTeacherCard(
                     context,
                     "Browse All Courses",
@@ -193,6 +199,8 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                     fullWidth: true,
                   ),
                   const SizedBox(height: 16),
+
+                  // Study Notes
                   _buildTeacherCard(
                     context,
                     "Browse Study Notes",
@@ -211,32 +219,46 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
 
             const SizedBox(height: 40),
 
+            // ─── Info Card ───
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.blue[50],
+                  color: isDark
+                      ? Colors.blue.withValues(alpha: 0.1)
+                      : Colors.blue[50],
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: Colors.blue[100]!),
+                  border: Border.all(
+                    color: isDark
+                        ? Colors.blue.withValues(alpha: 0.2)
+                        : Colors.blue[100]!,
+                  ),
                 ),
-                child: const Column(
+                child: Column(
                   children: [
-                    Icon(Icons.lightbulb_outline, color: Colors.blue, size: 32),
-                    SizedBox(height: 12),
+                    Icon(
+                      Icons.lightbulb_outline,
+                      color: isDark ? Colors.blue[300] : Colors.blue,
+                      size: 32,
+                    ),
+                    const SizedBox(height: 12),
                     Text(
                       "More features coming soon!",
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue,
+                        color: isDark ? Colors.blue[300] : Colors.blue,
                         fontSize: 16,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       "You'll soon be able to upload videos directly and manage your own student community.",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.blueGrey, fontSize: 13),
+                      style: GoogleFonts.poppins(
+                        color: isDark ? Colors.grey[400] : Colors.blueGrey,
+                        fontSize: 13,
+                      ),
                     ),
                   ],
                 ),
@@ -249,6 +271,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
     );
   }
 
+  /// Builds a gradient action card for teacher quick actions
   Widget _buildTeacherCard(
     BuildContext context,
     String title,
@@ -261,7 +284,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 150,
+        height: 140,
         width: fullWidth ? double.infinity : null,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
@@ -289,7 +312,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -298,7 +321,10 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: const TextStyle(color: Colors.white70, fontSize: 13),
+                  style: GoogleFonts.poppins(
+                    color: Colors.white70,
+                    fontSize: 13,
+                  ),
                 ),
               ],
             ),

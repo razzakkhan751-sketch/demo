@@ -1,3 +1,10 @@
+// ──────────────────────────────────────────────────────────
+// home_screen.dart — Student Dashboard (Main Screen)
+// ──────────────────────────────────────────────────────────
+// Shows: Courses, categories, learning paths, recommendations
+// Bottom nav: Home, Courses, Notes, Progress, Profile
+// ──────────────────────────────────────────────────────────
+
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';

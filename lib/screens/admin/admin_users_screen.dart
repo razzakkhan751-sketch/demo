@@ -87,31 +87,13 @@ class AdminUsersScreen extends StatelessWidget {
                 title: Text(user.name),
                 subtitle: Row(
                   children: [
-                    Text('${user.email} • '),
-                    if (user.role == 'pending')
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.orange.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(
-                            color: Colors.orange.withValues(alpha: 0.3),
-                          ),
-                        ),
-                        child: const Text(
-                          'Pending Choice',
-                          style: TextStyle(
-                            color: Colors.orange,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )
-                    else
-                      Text(user.role),
+                    Flexible(
+                      child: Text(
+                        '${user.email} • ',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    _buildRoleBadge(user),
                   ],
                 ),
                 trailing: Row(
@@ -135,18 +117,46 @@ class AdminUsersScreen extends StatelessWidget {
                           Icons.badge,
                           color: user.role == 'admin'
                               ? Colors.red
+                              : user.role == 'teacher'
+                              ? Colors.orange
                               : Colors.grey,
                         ),
+                        tooltip: 'Change Role',
                         onSelected: (String role) =>
                             _changeRole(context, authService, user, role),
                         itemBuilder: (context) => [
                           const PopupMenuItem(
                             value: 'student',
-                            child: Text('Student'),
+                            child: ListTile(
+                              leading: Icon(Icons.school, color: Colors.blue),
+                              title: Text('Student'),
+                              dense: true,
+                              contentPadding: EdgeInsets.zero,
+                            ),
+                          ),
+                          const PopupMenuItem(
+                            value: 'teacher',
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.cast_for_education,
+                                color: Colors.orange,
+                              ),
+                              title: Text('Teacher'),
+                              dense: true,
+                              contentPadding: EdgeInsets.zero,
+                            ),
                           ),
                           const PopupMenuItem(
                             value: 'admin',
-                            child: Text('Admin'),
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.admin_panel_settings,
+                                color: Colors.red,
+                              ),
+                              title: Text('Admin'),
+                              dense: true,
+                              contentPadding: EdgeInsets.zero,
+                            ),
                           ),
                         ],
                       ),
@@ -191,6 +201,48 @@ class AdminUsersScreen extends StatelessWidget {
     }
   }
 
+  Widget _buildRoleBadge(UserModel user) {
+    Color color;
+    String label;
+    switch (user.role) {
+      case 'admin':
+        color = Colors.red;
+        label = 'Admin';
+        break;
+      case 'teacher':
+        color = Colors.orange;
+        label = 'Teacher';
+        break;
+      case 'student':
+        color = Colors.blue;
+        label = 'Student';
+        break;
+      default:
+        color = Colors.grey;
+        label = 'Pending';
+        if (user.requestedRole != null) {
+          label += ' (${user.requestedRole})';
+        }
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withValues(alpha: 0.5)),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: color,
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
   void _changeRole(
     BuildContext context,
     AuthService authService,
@@ -200,13 +252,15 @@ class AdminUsersScreen extends StatelessWidget {
     try {
       if (role == 'admin') {
         await authService.promoteToAdmin(user.uid);
+      } else if (role == 'teacher') {
+        await authService.promoteToTeacher(user.uid);
       } else {
-        await authService.demoteFromAdmin(user.uid);
+        await authService.demoteToStudent(user.uid);
       }
       if (context.mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text("Role updated.")));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Role updated to ${role.toUpperCase()}.")),
+        );
       }
     } catch (e) {
       if (context.mounted) {

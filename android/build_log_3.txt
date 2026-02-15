@@ -1,0 +1,306 @@
+﻿Starting a Gradle Daemon, 3 busy and 2 incompatible and 6 stopped Daemons could not be reused, use --status for details
+> Task :gradle:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle:compileKotlin UP-TO-DATE
+> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy NO-SOURCE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources
+> Task :gradle:classes
+> Task :gradle:jar
+
+[Incubating] Problems report is available at: file:///C:/Users/razza/OneDrive/Desktop/elearning_app/android/build/reports/problems/problems-report.html
+.\gradlew : 
+At line:1 char:77
++ ... Adoptium\jdk-17
+.0.18.8-hotspot'; 
+.\gradlew 
+assembleDebug *>&1 | 
+Out-F ...
++                    
+                  ~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (:String   
+ ) [], RemoteExce    
+ption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+FAILURE: Build 
+failed with an 
+exception.
+
+* What went wrong:
+A problem occurred 
+configuring project 
+':package_info_plus'.
+> Multiple build 
+operations failed.
+      Could not 
+isolate parameters or
+g.gradle.api.internal
+.initialization.trans
+form.MergeInstrumenta
+tionAnalysisTransform
+$Parameters_Decorated
+@514512cc of 
+artifact transform Me
+rgeInstrumentationAna
+lysisTransform
+      Could not 
+isolate parameters or
+g.gradle.api.internal
+.initialization.trans
+form.MergeInstrumenta
+tionAnalysisTransform
+$Parameters_Decorated
+@514512cc of 
+artifact transform Me
+rgeInstrumentationAna
+lysisTransform
+      Could not 
+isolate parameters or
+g.gradle.api.internal
+.initialization.trans
+form.MergeInstrumenta
+tionAnalysisTransform
+$Parameters_Decorated
+@514512cc of 
+artifact transform Me
+rgeInstrumentationAna
+lysisTransform
+      Could not 
+isolate parameters or
+g.gradle.api.internal
+.initialization.trans
+form.MergeInstrumenta
+tionAnalysisTransform
+$Parameters_Decorated
+@514512cc of 
+artifact transform Me
+rgeInstrumentationAna
+lysisTransform
+      Could not 
+isolate parameters or
+g.gradle.api.internal
+.initialization.trans
+form.MergeInstrumenta
+tionAnalysisTransform
+$Parameters_Decorated
+@514512cc of 
+artifact transform Me
+rgeInstrumentationAna
+lysisTransform
+      Could not 
+isolate parameters or
+g.gradle.api.internal
+.initialization.trans
+form.MergeInstrumenta
+tionAnalysisTransform
+$Parameters_Decorated
+@514512cc of 
+artifact transform Me
+rgeInstrumentationAna
+lysisTransform
+      Could not 
+isolate parameters or
+g.gradle.api.internal
+.initialization.trans
+form.MergeInstrumenta
+tionAnalysisTransform
+$Parameters_Decorated
+@514512cc of 
+artifact transform Me
+rgeInstrumentationAna
+lysisTransform
+      Could not 
+isolate parameters or
+g.gradle.api.internal
+.initialization.trans
+form.MergeInstrumenta
+tionAnalysisTransform
+$Parameters_Decorated
+@514512cc of 
+artifact transform Me
+rgeInstrumentationAna
+lysisTransform
+      Could not 
+isolate parameters or
+g.gradle.api.internal
+.initialization.trans
+form.MergeInstrumenta
+tionAnalysisTransform
+$Parameters_Decorated
+@514512cc of 
+artifact transform Me
+rgeInstrumentationAna
+lysisTransform
+      Could not 
+isolate parameters or
+g.gradle.api.internal
+.initialization.trans
+form.MergeInstrumenta
+tionAnalysisTransform
+$Parameters_Decorated
+@514512cc of 
+artifact transform Me
+rgeInstrumentationAna
+lysisTransform
+      ...and 134 
+more failures.
+   > Could not 
+isolate parameters or
+g.gradle.api.internal
+.initialization.trans
+form.MergeInstrumenta
+tionAnalysisTransform
+$Parameters_Decorated
+@514512cc of 
+artifact transform Me
+rgeInstrumentationAna
+lysisTransform
+      > Could not 
+isolate value org.gra
+dle.api.internal.init
+ialization.transform.
+MergeInstrumentationA
+nalysisTransform$Para
+meters_Decorated@5145
+12cc of type MergeIns
+trumentationAnalysisT
+ransform.Parameters
+         > Multiple 
+build operations 
+failed.
+               Could 
+not read workspace 
+metadata from C:\User
+s\razza\.gradle\cache
+s\8.14\transforms\aa0
+ff929b869a53e8bafd405
+61a92dbe\metadata.bin
+               Could 
+not read workspace 
+metadata from C:\User
+s\razza\.gradle\cache
+s\8.14\transforms\5d9
+3c546480a06cd6cd89d81
+f38943cc\metadata.bin
+               Could 
+not read workspace 
+metadata from C:\User
+s\razza\.gradle\cache
+s\8.14\transforms\7d5
+40ba22a975f73cded0249
+2f273e8e\metadata.bin
+               Could 
+not read workspace 
+metadata from C:\User
+s\razza\.gradle\cache
+s\8.14\transforms\c8c
+798d0701e41df011a3747
+78edc3fe\metadata.bin
+            > Could 
+not read workspace 
+metadata from C:\User
+s\razza\.gradle\cache
+s\8.14\transforms\aa0
+ff929b869a53e8bafd405
+61a92dbe\metadata.bin
+            > Could 
+not read workspace 
+metadata from C:\User
+s\razza\.gradle\cache
+s\8.14\transforms\5d9
+3c546480a06cd6cd89d81
+f38943cc\metadata.bin
+            > Could 
+not read workspace 
+metadata from C:\User
+s\razza\.gradle\cache
+s\8.14\transforms\7d5
+40ba22a975f73cded0249
+2f273e8e\metadata.bin
+            > Could 
+not read workspace 
+metadata from C:\User
+s\razza\.gradle\cache
+s\8.14\transforms\c8c
+798d0701e41df011a3747
+78edc3fe\metadata.bin
+   > Could not read 
+workspace metadata 
+from C:\Users\razza\.
+gradle\caches\8.14\tr
+ansforms\aa0ff929b869
+a53e8bafd40561a92dbe\
+metadata.bin
+   > Could not read 
+workspace metadata 
+from C:\Users\razza\.
+gradle\caches\8.14\tr
+ansforms\7d540ba22a97
+5f73cded02492f273e8e\
+metadata.bin
+   > Could not read 
+workspace metadata 
+from C:\Users\razza\.
+gradle\caches\8.14\tr
+ansforms\c8c798d0701e
+41df011a374778edc3fe\
+metadata.bin
+   > Could not read 
+workspace metadata 
+from C:\Users\razza\.
+gradle\caches\8.14\tr
+ansforms\5d93c546480a
+06cd6cd89d81f38943cc\
+metadata.bin
+> Failed to notify 
+project evaluation 
+listener.
+   > java.lang.NullPo
+interException (no 
+error message)
+   > java.lang.NullPo
+interException (no 
+error message)
+
+* Try:
+> Run the 
+'artifactTransforms' 
+report task to view 
+details about 
+registered 
+transforms.
+> Review the 
+documentation on 
+Artifact Transforms 
+at https://docs.gradl
+e.org/8.14/userguide/
+artifact_transforms.h
+tml.
+> Run with 
+--stacktrace option 
+to get the stack 
+trace.
+> Run with --info or 
+--debug option to 
+get more log output.
+> Run with --scan to 
+get full insights.
+> Get more help at ht
+tps://help.gradle.org
+.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 45s
+4 actionable tasks: 2 executed, 2 up-to-date

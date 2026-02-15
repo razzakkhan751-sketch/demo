@@ -1,3 +1,8 @@
+// ──────────────────────────────────────────────────────────
+// Note Model — Course notes / study materials
+// Can be linked to a specific course or standalone
+// ──────────────────────────────────────────────────────────
+
 class Note {
   final String id;
   final String title;
@@ -8,6 +13,8 @@ class Note {
   final DateTime createdAt;
   final String? pdfUrl;
   final String? fileName;
+  final String? courseId; // Link to specific course
+  final String? chapterId; // Link to specific chapter
 
   Note({
     required this.id,
@@ -19,6 +26,8 @@ class Note {
     required this.createdAt,
     this.pdfUrl,
     this.fileName,
+    this.courseId,
+    this.chapterId,
   });
 
   factory Note.fromMap(Map<String, dynamic> data, String documentId) {
@@ -37,6 +46,8 @@ class Note {
                 : DateTime.now()),
       pdfUrl: data['pdf_url'] ?? data['pdfUrl'],
       fileName: data['file_name'] ?? data['fileName'],
+      courseId: data['course_id'] ?? data['courseId'],
+      chapterId: data['chapter_id'] ?? data['chapterId'],
     );
   }
 
@@ -50,6 +61,8 @@ class Note {
       'created_at': createdAt.toIso8601String(),
       'pdf_url': pdfUrl,
       'file_name': fileName,
+      'course_id': courseId,
+      'chapter_id': chapterId,
     };
   }
 }

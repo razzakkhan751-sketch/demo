@@ -251,8 +251,9 @@ class AppDrawer extends StatelessWidget {
     String title,
     VoidCallback onTap,
   ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ListTile(
-      leading: Icon(icon, color: Colors.grey[700]),
+      leading: Icon(icon, color: isDark ? Colors.white70 : Colors.grey[700]),
       title: Text(
         title,
         style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),

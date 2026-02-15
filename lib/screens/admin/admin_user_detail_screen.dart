@@ -113,14 +113,22 @@ class _AdminUserDetailScreenState extends State<AdminUserDetailScreen> {
     try {
       final chatService = ChatService();
       final roomId = await chatService.createPrivateChat(
-        currentUser.uid,
-        widget.user.uid,
+        userId: currentUser.uid,
+        userName: currentUser.name,
+        userRole: currentUser.role,
+        otherUserId: widget.user.uid,
+        otherUserName: widget.user.name,
+        otherUserRole: widget.user.role,
       );
       if (mounted) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => ChatScreen(roomId: roomId, title: widget.user.name),
+            builder: (_) => ChatScreen(
+              roomId: roomId,
+              otherUserName: widget.user.name,
+              otherUserRole: widget.user.role,
+            ),
           ),
         );
       }
